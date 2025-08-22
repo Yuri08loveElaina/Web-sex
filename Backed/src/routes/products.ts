@@ -8,7 +8,7 @@ const router = express.Router();
 // Get all products for a user
 router.get('/', authenticate, async (req, res) => {
   try {
-    const products = await Product.find({ userId: req.user.id }).sort({ createdAt: -1 });
+    const products = await Product.find({ userId: req.user?.id }).sort({ createdAt: -1 });
     res.json({
       success: true,
       count: products.length,
@@ -52,7 +52,7 @@ router.post('/', authenticate, validate(productSchema), async (req, res) => {
     const { name, description, price, currency, imageUrl, isActive } = req.body;
 
     const newProduct = new Product({
-      userId: req.user.id,
+      userId: req.user?.id,
       name,
       description,
       price,
@@ -84,7 +84,7 @@ router.put('/:id', authenticate, validate(productSchema), async (req, res) => {
     }
 
     // Check if user owns the product
-    if (product.userId.toString() !== req.user.id) {
+    if (product.userId.toString() !== req.user?.id) {
       return res.status(403).json({ message: 'Not authorized' });
     }
 
@@ -114,7 +114,7 @@ router.delete('/:id', authenticate, async (req, res) => {
     }
 
     // Check if user owns the product
-    if (product.userId.toString() !== req.user.id) {
+    if (product.userId.toString() !== req.user?.id) {
       return res.status(403).json({ message: 'Not authorized' });
     }
 
