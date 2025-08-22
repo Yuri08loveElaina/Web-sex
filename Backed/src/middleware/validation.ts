@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { object, string, number } from 'yup';
+import { object, string, number, boolean } from 'yup';
 
 export const validate = (schema: any) => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -16,6 +16,7 @@ export const validate = (schema: any) => {
   };
 };
 
+// User validation schemas
 export const registerSchema = object({
   username: string().required('Username is required').min(3).max(30),
   email: string().required('Email is required').email('Invalid email'),
@@ -27,6 +28,7 @@ export const loginSchema = object({
   password: string().required('Password is required')
 });
 
+// Link validation schema
 export const linkSchema = object({
   title: string().required('Title is required').max(50),
   url: string().required('URL is required').url('Invalid URL'),
@@ -35,6 +37,7 @@ export const linkSchema = object({
   order: number().default(0)
 });
 
+// Product validation schema
 export const productSchema = object({
   name: string().required('Name is required').max(100),
   description: string().required('Description is required').max(1000),
