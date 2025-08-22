@@ -154,7 +154,7 @@ router.post('/refresh', async (req, res) => {
 // Setup MFA
 router.post('/setup-mfa', authenticate, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.user?.id);
     
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -185,7 +185,7 @@ router.post('/setup-mfa', authenticate, async (req, res) => {
 router.post('/verify-mfa', authenticate, async (req, res) => {
   try {
     const { token } = req.body;
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.user?.id);
     
     if (!user || !user.mfaSecret) {
       return res.status(404).json({ message: 'MFA not set up' });
@@ -219,7 +219,7 @@ router.post('/verify-mfa', authenticate, async (req, res) => {
 router.post('/disable-mfa', authenticate, async (req, res) => {
   try {
     const { token } = req.body;
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.user?.id);
     
     if (!user || !user.mfaSecret) {
       return res.status(404).json({ message: 'MFA not set up' });
