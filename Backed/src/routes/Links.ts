@@ -8,7 +8,7 @@ const router = express.Router();
 // Get all links for a user
 router.get('/', authenticate, async (req, res) => {
   try {
-    const links = await Link.find({ userId: req.user.id }).sort({ order: 1 });
+    const links = await Link.find({ userId: req.user?.id }).sort({ order: 1 });
     res.json({
       success: true,
       count: links.length,
@@ -52,7 +52,7 @@ router.post('/', authenticate, validate(linkSchema), async (req, res) => {
     const { title, url, icon, isActive, order } = req.body;
 
     const newLink = new Link({
-      userId: req.user.id,
+      userId: req.user?.id,
       title,
       url,
       icon,
@@ -83,7 +83,7 @@ router.put('/:id', authenticate, validate(linkSchema), async (req, res) => {
     }
 
     // Check if user owns the link
-    if (link.userId.toString() !== req.user.id) {
+    if (link.userId.toString() !== req.user?.id) {
       return res.status(403).json({ message: 'Not authorized' });
     }
 
@@ -113,7 +113,7 @@ router.delete('/:id', authenticate, async (req, res) => {
     }
 
     // Check if user owns the link
-    if (link.userId.toString() !== req.user.id) {
+    if (link.userId.toString() !== req.user?.id) {
       return res.status(403).json({ message: 'Not authorized' });
     }
 
