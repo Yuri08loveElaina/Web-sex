@@ -7,8 +7,22 @@
     "dev": "nodemon src/app.ts",
     "build": "tsc",
     "start": "node dist/app.js",
-    "test": "jest"
+    "start:dev": "npm run build && npm run start",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix"
   },
+  "keywords": [
+    "typescript",
+    "node",
+    "express",
+    "mongodb",
+    "jwt",
+    "authentication"
+  ],
+  "author": "",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
@@ -26,11 +40,19 @@
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.2",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "^18.15.11",
     "@types/speakeasy": "^2.0.7",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
+    "eslint": "^8.42.0",
+    "jest": "^29.5.0",
     "nodemon": "^2.0.22",
     "ts-jest": "^29.1.0",
     "typescript": "^5.0.4"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
