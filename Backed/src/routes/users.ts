@@ -8,7 +8,7 @@ const router = express.Router();
 // Get current user
 router.get('/me', authenticate, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await User.findById(req.user?.id).select('-password');
     res.json({
       success: true,
       data: user
@@ -28,7 +28,7 @@ router.put('/me', authenticate, async (req, res) => {
     if (username) {
       const existingUser = await User.findOne({ 
         username, 
-        _id: { $ne: req.user.id } 
+        _id: { $ne: req.user?.id } 
       });
       
       if (existingUser) {
@@ -39,7 +39,7 @@ router.put('/me', authenticate, async (req, res) => {
     if (email) {
       const existingUser = await User.findOne({ 
         email, 
-        _id: { $ne: req.user.id } 
+        _id: { $ne: req.user?.id } 
       });
       
       if (existingUser) {
@@ -48,7 +48,7 @@ router.put('/me', authenticate, async (req, res) => {
     }
 
     const user = await User.findByIdAndUpdate(
-      req.user.id,
+      req.user?.id,
       { $set: { username, email } },
       { new: true }
     ).select('-password');
@@ -74,7 +74,7 @@ router.put('/me/password', authenticate, async (req, res) => {
       });
     }
 
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.user?.id);
     
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
