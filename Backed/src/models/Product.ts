@@ -52,6 +52,26 @@ const ProductSchema: Schema = new Schema({
   timestamps: true
 });
 
+// Index for faster queries
+ProductSchema.index({ userId: 1, createdAt: -1 });
+
+export default mongoose.model<IProduct>('Product', ProductSchema);  currency: {
+    type: String,
+    default: 'USD',
+    enum: ['USD', 'EUR', 'GBP', 'JPY', 'CAD', 'AUD']
+  },
+  imageUrl: {
+    type: String,
+    trim: true
+  },
+  isActive: {
+    type: Boolean,
+    default: true
+  }
+}, {
+  timestamps: true
+});
+
 ProductSchema.index({ userId: 1, createdAt: -1 });
 
 export default mongoose.model<IProduct>('Product', ProductSchema);
